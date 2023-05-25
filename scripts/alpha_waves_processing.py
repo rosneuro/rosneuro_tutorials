@@ -10,7 +10,7 @@ def callback(data: NeuroFrame):
 	current_frame = data
 	new_data = True
 
-def buffered_bandpower(data: NeuroFrame, rate: int):
+def buffered_bandpower(data: NeuroFrame):
 	global buffer, seq, avgs
 	
 	# INITIALIZATION
@@ -48,7 +48,7 @@ def generate_new_message(data, rate, old_message):
 	global seq
 	
 	new_msg = copy.deepcopy(old_message)
-	new_msg = rospy.get_rostime()
+	now = rospy.get_rostime()
 	new_msg.sr = rate 
 	new_msg.header.seq = seq - 1 
 	new_msg.header.stamp.secs = now.secs
@@ -69,16 +69,17 @@ def main():
 	# Init the node
 	rospy.init_node('alpha_waves_processing')
 	# Init the Publisher
-	rate = rospy.get_param('rate', 16) # data.sr / nsample
+	hz = rospy.get_param('rate', 16) # data.sr / nsample
 	pub = rospy.Publisher('bandpower', NeuroFrame, queue_size=1)
 	# Setup the Subscriber
 	rospy.Subscriber('neurodata_filtered', NeuroFrame, callback)
+	rate = rospy.Rate(hz)
 
 	while not rospy.is_shutdown():
 		# Wait until new data arrives
 		if new_data:
 			new_data = buffered_bandpower(current_frame)
-			new_msg = generate_new_message(new_data, rate, current_frame)
+			new_msg = generate_new_message(new_data, hz, current_frame)
 			pub.publish(new_msg)
 			new_data = False
 		rate.sleep()

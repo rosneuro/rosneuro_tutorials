@@ -6,7 +6,6 @@ from rosneuro_msgs.msg import NeuroFrame
 def callback(data: NeuroFrame):
 	# Load the global variables
 	global count, threshold, channel_n
-	eeg info nsample 
 
 	# Focalize on the specific channel 
 	message_length = int(data.eeg.info.nsamples)
@@ -17,9 +16,9 @@ def callback(data: NeuroFrame):
 
 	# Check for the blink
 	for i in range(channel_data.size):
-		if( (channel_data[i] - mean) > threshold):
+		if( (channel_data[i] - mean_channel) > threshold):
 			count = count + 1
-			print(seq, ": Blink detected!")
+			print(count, ": Blink detected!")
 			break
 	
 

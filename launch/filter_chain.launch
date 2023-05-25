@@ -7,7 +7,7 @@
 	<arg name="samplerate" default='512'/>
 
 	<!-- load filter chain parameters -->
-	<rosparam command="load" file="$(find filters_tutorial)/config/ChainCfgDemo.yaml" />
+	<rosparam command="load" file="$(find rosneuro_tutorials)/config/ChainCfgDemo.yaml" />
 
 	<node name="acquisition" pkg="rosneuro_acquisition" type="acquisition" output="screen">
 		<param name="~plugin" 	  value="$(arg plugin)"/>

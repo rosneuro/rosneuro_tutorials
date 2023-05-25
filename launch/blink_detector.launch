@@ -7,7 +7,7 @@
 	<arg name="samplerate" default='512'/>
 
 	<!-- load filter chain parameters -->
-	<rosparam command="load" file="$(find filters_tutorial)/config/ChainCfgDemoBlink.yaml" />
+	<rosparam command="load" file="$(find rosneuro_tutorials)/config/ChainCfgDemoBlink.yaml" />
 
 	<!-- blink detector arguments -->
 	<arg name="threshold" default='15'/>
