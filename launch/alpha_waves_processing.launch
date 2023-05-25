@@ -2,7 +2,7 @@
 <launch>
 	<!-- acquisition arguments -->
 	<arg name="plugin" default='rosneuro::EGDDevice'/>
-	<arg name="devarg" default='/home/$(env USER)/rec_test/demo.gdf'/>
+	<arg name="devarg" default='/var/home/$(env USER)/my.gdf'/>
 	<arg name="framerate" default='16'/>
 	<arg name="samplerate" default='512'/>
 
@@ -20,7 +20,7 @@
 
 	<node name="filterchain_node" pkg="rosneuro_filters" type="filterchain_node" output="screen" >
 		<param name="configname" value="ChainCfgTest" />
-	</node>	
+	</node>
 	
 	<!-- alpha waves processing -->
 	<node name="alpha_waves_processing_node" pkg="rosneuro_tutorials" type="alpha_waves_processing.py" output="screen" >

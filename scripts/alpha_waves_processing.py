@@ -3,6 +3,7 @@ import rospy
 import numpy as np
 import copy
 from rosneuro_msgs.msg import NeuroFrame
+from std_msgs.msg import Float32MultiArray, MultiArrayDimension
 
 def callback(data: NeuroFrame):
 	global new_data, current_frame
@@ -45,18 +46,17 @@ def buffered_bandpower(data: NeuroFrame):
 
 def generate_new_message(data, rate, old_message):
 	# Starting from the old message generate the new one
-	global seq
+	new_msg = Float32MultiArray()
+
+	new_msg.layout.dim = [MultiArrayDimension()]
 	
-	new_msg = copy.deepcopy(old_message)
-	now = rospy.get_rostime()
-	new_msg.sr = rate 
-	new_msg.header.seq = seq - 1 
-	new_msg.header.stamp.secs = now.secs
-	new_msg.header.stamp.nsecs = now.nsecs
-	new_msg.eeg.info.nsamples = 1
+	new_msg.layout.dim[0].label = "height";
+	new_msg.layout.dim[0].size   = old_message.eeg.info.nchannels;
+	new_msg.layout.dim[0].stride = old_message.eeg.info.nchannels;
+	new_msg.layout.data_offset = 0;
 
 	# Pack the new data
-	new_msg.eeg.data = data
+	new_msg.data = data
 
 	return new_msg
 
@@ -70,7 +70,7 @@ def main():
 	rospy.init_node('alpha_waves_processing')
 	# Init the Publisher
 	hz = rospy.get_param('rate', 16) # data.sr / nsample
-	pub = rospy.Publisher('bandpower', NeuroFrame, queue_size=1)
+	pub = rospy.Publisher('bandpower', Float32MultiArray, queue_size=1)
 	# Setup the Subscriber
 	rospy.Subscriber('neurodata_filtered', NeuroFrame, callback)
 	rate = rospy.Rate(hz)
