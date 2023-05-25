@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- acquisition arguments -->
+	<arg name="plugin" default='rosneuro::EGDDevice'/>
+	<arg name="devarg" default='/home/$(env USER)/rec_test/demo.gdf'/>
+	<arg name="framerate" default='16'/>
+	<arg name="samplerate" default='512'/>
+	<!-- recorder arguments -->
+	<arg name="autostart" default='true'/>
+	<arg name="filepath" default='/home/$(env USER)/rec_test'/>
+   
+	<!-- acquisition node -->
+	<node name="acquisition" pkg="rosneuro_acquisition" type="acquisition" output="screen">
+  	  <param name="~plugin" 	  value="$(arg plugin)"/>
+  	  <param name="~devarg" 	  value="$(arg devarg)"/>
+  	  <param name="~samplerate" value="$(arg samplerate)"/>
+  	  <param name="~framerate"  value="$(arg framerate)"/>
+  	</node>
+
+ 	<node name="neuroviz" pkg="rosneuro_visualizer" type="neuroviz" required="true" /> 
+ 	
+ 	<node name="recorder" pkg="rosneuro_recorder" type="recorder" >
+		<param name="~autostart" value="$(arg autostart)"/>
+		<param name="~filepath" value="$(arg filepath)"/>
+	</node>
+
+</launch>

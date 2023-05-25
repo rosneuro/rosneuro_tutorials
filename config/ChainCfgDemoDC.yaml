@@ -1,0 +1,3 @@
+CAR:
+    - name: car
+      type: rosneuro_filters/CarFilterFloat

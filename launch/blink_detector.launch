@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- acquisition arguments -->
+	<arg name="plugin" default='rosneuro::EGDDevice'/>
+	<arg name="devarg" default='/home/$(env USER)/rec_test/demo.gdf'/>
+	<arg name="framerate" default='16'/>
+	<arg name="samplerate" default='512'/>
+
+	<!-- load filter chain parameters -->
+	<rosparam command="load" file="$(find filters_tutorial)/config/ChainCfgDemoBlink.yaml" />
+
+	<!-- blink detector arguments -->
+	<arg name="threshold" default='15'/>
+	<arg name="channel" default='1'/>
+
+	<node name="acquisition" pkg="rosneuro_acquisition" type="acquisition" output="screen">
+		<param name="~plugin" 	  value="$(arg plugin)"/>
+		<param name="~devarg" 	  value="$(arg devarg)"/>
+		<param name="~samplerate" value="$(arg samplerate)"/>
+		<param name="~framerate"  value="$(arg framerate)"/>
+	</node>
+
+  <node name="neuroviz" pkg="rosneuro_visualizer" type="neuroviz" required="true" /> 
+
+	<node name="filterchain_node" pkg="rosneuro_filters" type="filterchain_node" output="screen" >
+		<param name="configname" value="ChainCfgTest" />
+	</node>	
+
+	<!-- launch the blink detector -->
+	<node name="blink_detector_node" pkg="rosneuro_tutorials" type="blink_detector.py" output="screen" >
+		<param name="~threshold" value="$(arg threshold)" />
+		<param name="~channel" value="$(arg channel)" />
+	</node>	
+
+</launch>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rosneuro_tutorials</name>
+  <version>0.1.0</version>
+  <description>The rosneuro_tutorials package</description>
+
+  <url type="website">https://sites.google.com/view/ros-neuro-workshop</url> 
+
+  <maintainer email="alessio.palatella@phd.unipd.it">Alessio Palatella</maintainer>
+  <maintainer email="edoardo.trombin@phd.unipd.it">Edoardo Trombin</maintainer>
+  <maintainer email="piero.simonetto@phd.unipd.it">Piero Simonetto</maintainer>
+
+  <author email="alessio.palatella@phd.unipd.it">Alessio Palatella</author>
+  <author email="edoardo.trombin@phd.unipd.it">Edoardo Trombin</author>
+  <author email="piero.simonetto@phd.unipd.it">Piero Simonetto</author>
+  
+  <license>GPLv3</license>
+ 
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <depend>rosneuro_filters</depend>
+  <depend>rosneuro_filters_butterworth</depend>
+  <depend>librtfilter</depend>
+  
+  
+</package>
