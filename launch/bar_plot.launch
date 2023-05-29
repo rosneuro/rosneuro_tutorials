@@ -3,7 +3,7 @@
 	<!-- acquisition arguments -->
 	<arg name="channel" default='1'/>	
 	<arg name="plugin" default='rosneuro::EGDDevice'/>
-	<arg name="devarg" default='/home/$(env USER)/rec_test/demo.gdf'/>
+	<arg name="devarg" default='/home/$(env USER)/gdf_files/demo.gdf'/>
 	<arg name="framerate" default='16'/>
 	<arg name="samplerate" default='512'/>
 
