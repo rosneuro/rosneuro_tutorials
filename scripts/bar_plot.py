@@ -1,53 +1,46 @@
 #!/usr/bin/env python
 import rospy
-import numpy as np
-import copy
-from rosneuro_msgs.msg import NeuroFrame
+from std_msgs.msg import Float32MultiArray
 import tkinter  as tk 
 from tkinter import *
 from tkinter import ttk
 
 
-
-seq= 0
-#RANDOM VALUES, WILL BE INITIALIZED IN THE FIRST CALLBACK
-nsamples = 0
-nchannels = 0
-buf = None
-avgs = None
-pg_val=None
-ch=0
-
 def callback(data):
-	global pg_val
-	pg_val.set(data.eeg.data[ch])
+	global channel_value,channel
+	#UPDATE THE VALUE OF THE BAR
+	channel_value.set((data.data[channel-1]+1)/2)
 		
 	
 
 def main():
-	global pg_val,var,my_w
+	global channel_value,channel
 	rospy.init_node('bar_plot', anonymous=True)
-	rospy.Subscriber('bandpower', NeuroFrame, callback)
-	my_w = tk.Tk()
-	my_w.geometry("400x200")
-	my_w.title('Bandpower of channel ' + str(ch))
-	pg_val = DoubleVar()
-	pg_val.set(0)
-	s = ttk.Style()
-	s.theme_use("classic")
-	s.configure("Vertical.TProgressbar", background='green')
-	prg1 = ttk.Progressbar(my_w,orient = HORIZONTAL, variable=pg_val,length = 100, maximum=2, mode ="determinate", style="Vertical.TProgressbar")
-	label1 = Label( my_w, text='0')
-	label1.place(relx=.01,rely=.3)
-	label1 = Label( my_w, text='1')
-	label1.place(relx=.97,rely=.3)
-	#prg1.place(relx=.2,rely=.5)
-	prg1.pack(fill=X, expand=1)
-	# Keep the window open
-	my_w.mainloop()
-	while not rospy.is_shutdown():
-		my_w.update()
-		rospy.spin()
+	rospy.Subscriber('bandpower',Float32MultiArray, callback)
+	channel=rospy.get_param('~channel',1)
+	print(channel)
+	
+	#CREATE THE WINDOW
+	window = tk.Tk()
+	window.geometry("400x200")
+	window.title('Bandpower of channel ' + str(channel))
+	
+	#CREATE THE VARIABLE WHICH WILL CONTAIN THE VALUE OF THE BAR
+	channel_value = DoubleVar()
+	
+	#CREATE THE DYNAMIC BAR
+	progress_bar = ttk.Progressbar(window,orient = HORIZONTAL, variable=channel_value, maximum=1, mode ="determinate")
+	progress_bar.pack(fill=X, expand=1)
+	
+	#CREATE THE LABELS
+	label_0 = Label( window, text='0')
+	label_0.place(relx=.01,rely=.3)
+	label_1 = Label( window, text='1')
+	label_1.place(relx=.97,rely=.3)
+	
+	#KEEP THE WINDOW OPEN
+	window.mainloop()
+
 
 if __name__ == '__main__':
 	main()

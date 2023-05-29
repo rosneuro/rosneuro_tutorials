@@ -65,7 +65,7 @@ def main():
 	global new_data, current_frame, seq
 	new_data = False
 	seq = 0
-
+	np.seterr(divide = 'ignore') #just to avoid warnings when applying log10
 	# Init the node
 	rospy.init_node('alpha_waves_processing')
 	# Init the Publisher
