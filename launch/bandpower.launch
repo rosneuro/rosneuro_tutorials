@@ -23,7 +23,7 @@
 	</node>
 	
 	<!-- alpha waves processing -->
-	<node name="alpha_waves_processing_node" pkg="rosneuro_tutorials" type="alpha_waves_processing.py" output="screen" >
+	<node name="bandpower_node" pkg="rosneuro_tutorials" type="bandpower.py" output="screen" >
 			<param name="rate" value="framerate" />
 	</node>
 

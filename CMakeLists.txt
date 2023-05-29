@@ -47,7 +47,7 @@ add_definitions(${EIGEN3_DEFINITIONS})
 ## Declare a python executable
 
 
-catkin_install_python(PROGRAMS scripts/blink_detector.py scripts/alpha_waves_processing.py scripts/bar_plot.py scripts/talker.py scripts/listener.py
+catkin_install_python(PROGRAMS scripts/blink_detector.py scripts/bandpower.py scripts/bar_plot.py scripts/talker.py scripts/listener.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
