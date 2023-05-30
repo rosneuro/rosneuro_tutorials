@@ -67,7 +67,7 @@ def main():
 	seq = 0
 	np.seterr(divide = 'ignore') #just to avoid warnings when applying log10
 	# Init the node
-	rospy.init_node('alpha_waves_processing')
+	rospy.init_node('bandpower')
 	# Init the Publisher
 	hz = rospy.get_param('rate', 16) # data.sr / nsample
 	pub = rospy.Publisher('bandpower', Float32MultiArray, queue_size=1)
