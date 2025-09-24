@@ -27,7 +27,6 @@
   <exec_depend>std_msgs</exec_depend>
   <depend>rosneuro_filters</depend>
   <depend>rosneuro_filters_butterworth</depend>
-  <depend>librtfilter</depend>
   
   
 </package>

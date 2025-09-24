@@ -18,17 +18,17 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Eigen3 REQUIRED)
-find_library(RTF_LIBRARIES rtfilter)
-find_path(RTF_INCLUDE_DIRS rtfilter.h)
 
 find_package(PkgConfig)
 
 
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES filters_tutorial
-#  CATKIN_DEPENDS roscpp std_msgs
-#  DEPENDS system_lib
+  INCLUDE_DIRS 
+  	include
+  LIBRARIES
+  CATKIN_DEPENDS 
+  	roscpp std_msgs
+  DEPENDS
 )
 
 ###########
@@ -39,14 +39,11 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
-  ${RTF_INCLUDE_DIRS}
   include
 )
 add_definitions(${EIGEN3_DEFINITIONS})
 
 ## Declare a python executable
-
-
 catkin_install_python(PROGRAMS scripts/blink_detector.py scripts/bandpower.py scripts/bar_plot.py scripts/talker.py scripts/listener.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
@@ -54,5 +51,5 @@ catkin_install_python(PROGRAMS scripts/blink_detector.py scripts/bandpower.py sc
 ## Declare a C++ executable
 
 add_executable(blink_detector src/blink_detector.cpp)
-target_link_libraries(blink_detector ${catkin_LIBRARIES} ${RTF_LIBRARIES})
+target_link_libraries(blink_detector ${catkin_LIBRARIES})
 add_dependencies(blink_detector ${catkin_EXPORTED_TARGETS})
