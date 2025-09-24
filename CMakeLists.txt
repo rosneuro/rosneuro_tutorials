@@ -23,12 +23,12 @@ find_package(PkgConfig)
 
 
 catkin_package(
-  INCLUDE_DIRS 
-  	include
-  LIBRARIES
-  CATKIN_DEPENDS 
-  	roscpp std_msgs
-  DEPENDS
+	#INCLUDE_DIRS 
+  	#	include
+  	#LIBRARIES
+  	#CATKIN_DEPENDS 
+  	#	roscpp std_msgs
+  	#DEPENDS
 )
 
 ###########
