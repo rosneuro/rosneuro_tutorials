@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 	<!-- acquisition arguments -->
+	<arg name="devarg" default='/home/$(env USER)/neurodata/demo.gdf'/>
 	<arg name="plugin" default='rosneuro::EGDDevice'/>
-	<arg name="devarg" default='/home/$(env USER)/gdf_files/demo.gdf'/>
 	<arg name="framerate" default='16'/>
 	<arg name="samplerate" default='512'/>
    
